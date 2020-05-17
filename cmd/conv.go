@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 var output string
@@ -26,7 +25,6 @@ var convCmd = &cobra.Command{
 			err := funcs.ToJSON()
 			if err != nil {
 				fmt.Printf("err: %v", errors.Unwrap(err))
-				os.Exit(-1)
 			}
 		}else {
 			fmt.Println("TODO")

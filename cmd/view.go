@@ -17,13 +17,5 @@ var viewCmd = &cobra.Command{
 	Args:  cobra.MaximumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("TODO")
-		//if line == 0 {
-		//	os.Exit(0)
-		//}
-		//err := _func.Delete(line)
-		//if err != nil {
-		//	fmt.Printf("删除错误 err: %v", errors.Cause(err))
-		//	os.Exit(-1)
-		//}
 	},
 }

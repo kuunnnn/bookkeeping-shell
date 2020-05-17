@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
-	"os"
 )
 
 func init() {
@@ -21,7 +20,6 @@ var backupCmd = &cobra.Command{
 		err := funcs.Backup()
 		if err != nil {
 			fmt.Printf("备份数据失败 err: %v", errors.Unwrap(err))
-			os.Exit(-1)
 		}
 	},
 }

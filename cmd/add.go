@@ -44,12 +44,11 @@ var addCmd = &cobra.Command{
 		}
 		if money <= 0 {
 			fmt.Printf("money[ %.2f ]不能小于等于0\n", money)
-			os.Exit(1)
+			os.Exit(0)
 		}
 		err := funcs.Add(money, args[0], desc, day, tp)
 		if err != nil {
 			fmt.Printf("插入数据失败 err: %v", errors.Unwrap(err))
-			os.Exit(-1)
 		}
 	},
 }

@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra"
 	"os"
 )
+
 var line uint
 
 func init() {
@@ -21,13 +22,12 @@ var deleteCmd = &cobra.Command{
 	Long:  "删除指定行数据 可以先使用 list 查看行号",
 	Args:  cobra.MaximumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
-		if line == 0 {
+		if line <= 0 {
 			os.Exit(0)
 		}
 		err := funcs.Delete(line)
 		if err != nil {
 			fmt.Printf("删除错误 err: %v", errors.Unwrap(err))
-			os.Exit(-1)
 		}
 	},
 }
