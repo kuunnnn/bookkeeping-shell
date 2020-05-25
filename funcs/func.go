@@ -30,7 +30,7 @@ func init() {
 	fileDirPath = fmt.Sprintf("%s%s", userInfo.HomeDir, fileDirPath)
 	filePath = fmt.Sprintf("%s%s", userInfo.HomeDir, filePath)
 	FileBackupPath = fmt.Sprintf("%s%s", userInfo.HomeDir, FileBackupPath)
-	FileBackupPath = fmt.Sprintf("%s%s", userInfo.HomeDir, outputFilePath)
+	outputFilePath = fmt.Sprintf("%s%s", userInfo.HomeDir, outputFilePath)
 }
 
 // 备份文件

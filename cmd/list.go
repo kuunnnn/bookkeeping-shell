@@ -11,7 +11,7 @@ var limit uint
 var offset uint
 
 func init() {
-	listCmd.Flags().UintVarP(&line, "limit", "l", 10, "Number of data to be displayed")
+	listCmd.Flags().UintVarP(&limit, "limit", "l", 10, "Number of data to be displayed")
 	listCmd.Flags().UintVarP(&offset, "offset", "o", 0, "Offset")
 	RootCmd.AddCommand(listCmd)
 }
@@ -29,12 +29,13 @@ var listCmd = &cobra.Command{
 `,
 	Args: cobra.MaximumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println(limit)
 		if limit <= 0 {
 			limit = 10
 		}
 		err := funcs.Cat(limit, offset)
 		if err != nil {
-			fmt.Printf("打印数据失败 err: %v", errors.Unwrap(err))
+			fmt.Printf("打印数据失败 err: %v\n", errors.Unwrap(err))
 		}
 	},
 }
