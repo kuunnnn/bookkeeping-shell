@@ -1,3 +1,5 @@
+//go:generate statik -src=./view/build
+// generate 之前还需手动在 html 文件的 head 内添加 <script src="./data.js"></script>
 package main
 
 import (
@@ -6,8 +8,4 @@ import (
 
 func main() {
 	cmd.Execute()
-	//err := doc.GenMarkdownTree(cmd.RootCmd, "/Users/hukun/bookkeeping/")
-	//if err !=nil {
-	//	fmt.Printf("d %v\n",err)
-	//}
 }

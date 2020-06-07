@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// 将数据转换为 json 形式
 func ToJSON() error {
 	jsonSlice, err := readDataToRecordSlice();
 	if err != nil {
@@ -24,7 +25,7 @@ func ToJSON() error {
 	output = append(output, "]")
 	err = ioutil.WriteFile(outputFilePath, []byte(strings.Join(output, "")), 0644)
 	if err != nil {
-		return errors.Wrap(err, "写入 json 出错")
+		return errors.Wrap(err, "write data to json file error")
 	}
 	fmt.Printf("The file has been generated to %s\n", outputFilePath)
 	return nil
