@@ -10,7 +10,7 @@ import (
 
 // 将数据转换为 json 形式
 func ToJSON() error {
-	jsonSlice, err := readDataToRecordSlice();
+	jsonSlice, err := readDataToRecordSlice()
 	if err != nil {
 		return errors.WithStack(err)
 	}
