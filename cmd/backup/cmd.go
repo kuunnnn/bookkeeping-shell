@@ -1,7 +1,6 @@
 package backup
 
 import (
-	"bookkeeping-shell/funcs"
 	read_data "bookkeeping-shell/read-data"
 	"fmt"
 	"github.com/pkg/errors"
@@ -22,7 +21,7 @@ func createCommand() *cobra.Command {
 	return &cobra.Command{
 		Use:   "backup",
 		Short: "备份数据",
-		Long:  fmt.Sprintf(`备份数据到[ %s ]目录下,且会添加日期到文件名后`, funcs.FileBackupPath),
+		Long:  fmt.Sprintf(`备份数据到[ %s ]目录下,且会添加日期到文件名后`, read_data.FileBackupPath),
 		Args:  cobra.MaximumNArgs(0),
 		Run:   handler,
 	}
