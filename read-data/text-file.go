@@ -1,4 +1,4 @@
-package funcs
+package read_data
 
 import (
 	"bufio"
@@ -11,14 +11,6 @@ import (
 	"time"
 )
 
-type record struct {
-	Date      string  `json:"date"`
-	Timestamp int64   `json:"timestamp"`
-	Money     float64 `json:"money"`
-	Category  string  `json:"category"`
-	Type      string  `json:"type"`
-	Desc      string  `json:"desc"`
-}
 // 获取偏移的时间
 func GetOffsetTime(offset int) (string, int64) {
 	t := time.Now().AddDate(0, 0, offset)
@@ -44,18 +36,18 @@ func readString(list []byte, i int, l int) ([]byte, int) {
 	return result, i
 }
 
-func readDataToRecordSlice() ([]*record, error) {
+func ReadDataToRecordSlice() ([]*Record, error) {
 	file, err := os.Open(FilePath)
 	if err != nil {
 		return nil, errors.Wrap(err, "打开文件错误")
 	}
 	scanner := bufio.NewScanner(file)
-	jsonSlice := make([]*record, 0)
+	jsonSlice := make([]*Record, 0)
 	for scanner.Scan() {
 		txt := []byte(scanner.Text());
 		i := 0
 		l := len(txt)
-		record := &record{}
+		record := &Record{}
 		for j := 0; i < l; j++ {
 			r, i1 := readString(txt, i, l)
 			i = i1
@@ -94,13 +86,13 @@ func readDataToRecordSlice() ([]*record, error) {
 }
 
 // 记录要输出的数据 行号和行内容
-type lineValue struct {
-	value      []byte
-	lineNumber int
+type LineValue struct {
+	Value      []byte
+	LineNumber int
 }
 
 // 切片是否不是空的
-func byteSliceIsNotEmpty(byt []byte) bool {
+func ByteSliceIsNotEmpty(byt []byte) bool {
 	if byt == nil {
 		return false
 	}
@@ -115,7 +107,7 @@ func byteSliceIsNotEmpty(byt []byte) bool {
 }
 
 // 反转 []byte
-func reverse(s []byte) []byte {
+func Reverse(s []byte) []byte {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		s[i], s[j] = s[j], s[i]
 	}
@@ -123,7 +115,7 @@ func reverse(s []byte) []byte {
 }
 
 //反转 []*lineValue
-func reverse2(s []*lineValue) []*lineValue {
+func Reverse2(s []*LineValue) []*LineValue {
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		s[i], s[j] = s[j], s[i]
 	}
@@ -131,7 +123,7 @@ func reverse2(s []*lineValue) []*lineValue {
 }
 
 // 获取文件的行数
-func getFileLines(reader io.Reader) int {
+func GetFileLines(reader io.Reader) int {
 	bioReade := bufio.NewReader(reader)
 	count := 0
 	for {

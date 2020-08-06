@@ -1,6 +1,7 @@
-package funcs
+package list
 
 import (
+	read_data "bookkeeping-shell/read-data"
 	"fmt"
 	"github.com/pkg/errors"
 	"os"
@@ -8,13 +9,13 @@ import (
 
 // 输出最近[limit]条数据 并打印行号
 func Cat(limit uint, offsetStart uint) error {
-	file, err := os.Open(FilePath)
+	file, err := os.Open(read_data.FilePath)
 	if err != nil {
 		return errors.Wrap(err, "打开文件错误")
 	}
 	defer file.Close()
 	// 行号 倒数的
-	lineNumber := getFileLines(file)
+	lineNumber := read_data.GetFileLines(file)
 	// 定位到最后读到的第一个字节就是 \n 所以总行数需要加 1
 	lineNumber++
 	if offsetStart >= uint(lineNumber) {
@@ -33,7 +34,7 @@ func Cat(limit uint, offsetStart uint) error {
 	// 已经读了几行
 	var line uint = 0
 	// 存储读出的 byte
-	lineSlice := make([]*lineValue, 0)
+	lineSlice := make([]*read_data.LineValue, 0)
 	// 一直读到 limit 行或者 读完
 	i := offset - 1
 	for ; i >= 0; i-- {
@@ -49,13 +50,13 @@ func Cat(limit uint, offsetStart uint) error {
 		}
 		// 跳过空行
 		// 定位到最后读到的第一个字节就是 \n 也就是说一定会有一个空行
-		if byteSliceIsNotEmpty(lineBuf) {
+		if read_data.ByteSliceIsNotEmpty(lineBuf) {
 			if offsetStart == 0 {
 				line = line + 1
 				// 保存这一行数据
-				lineSlice = append(lineSlice, &lineValue{
-					lineNumber: lineNumber,
-					value:      reverse(lineBuf),
+				lineSlice = append(lineSlice, &read_data.LineValue{
+					LineNumber: lineNumber,
+					Value:      read_data.Reverse(lineBuf),
 				})
 			} else {
 				offsetStart--
@@ -71,16 +72,16 @@ func Cat(limit uint, offsetStart uint) error {
 	}
 	// 如果 i 是 -1 表示 没有足够的非空行
 	if i == -1 {
-		lineSlice = append(lineSlice, &lineValue{
-			lineNumber: lineNumber,
-			value:      reverse(lineBuf),
+		lineSlice = append(lineSlice, &read_data.LineValue{
+			LineNumber: lineNumber,
+			Value:      read_data.Reverse(lineBuf),
 		})
 	}
 	template := "%-15s %-15s %-15s %-15s %-10s %-10s %-15s\n"
 	fmt.Printf(template, "Lines", "date", "timestamp", "money", "category", "type", "description")
-	for _, v := range reverse2(lineSlice) {
-		if byteSliceIsNotEmpty(v.value) {
-			fmt.Printf("%-15d %-15s\n", v.lineNumber, string(v.value))
+	for _, v := range read_data.Reverse2(lineSlice) {
+		if read_data.ByteSliceIsNotEmpty(v.Value) {
+			fmt.Printf("%-15d %-15s\n", v.LineNumber, string(v.Value))
 		}
 	}
 	return nil

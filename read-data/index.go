@@ -1,4 +1,4 @@
-package funcs
+package read_data
 
 import (
 	"fmt"
@@ -6,7 +6,6 @@ import (
 )
 
 type Species string
-
 const (
 	fileBackupPrefix         = "bookkeeping"
 	INCOME           Species = "+"
@@ -16,7 +15,7 @@ const (
 var (
 	FileDirPath    = "/bookkeeping"
 	FilePath       = "/bookkeeping/bookkeeping.txt"
-	outputFilePath = "/bookkeeping/bookkeeping.json"
+	OutputFilePath = "/bookkeeping/bookkeeping.json"
 	FileBackupPath = "/bookkeeping/backup"
 )
 
@@ -25,5 +24,5 @@ func init() {
 	FileDirPath = fmt.Sprintf("%s%s", userInfo.HomeDir, FileDirPath)
 	FilePath = fmt.Sprintf("%s%s", userInfo.HomeDir, FilePath)
 	FileBackupPath = fmt.Sprintf("%s%s", userInfo.HomeDir, FileBackupPath)
-	outputFilePath = fmt.Sprintf("%s%s", userInfo.HomeDir, outputFilePath)
+	OutputFilePath = fmt.Sprintf("%s%s", userInfo.HomeDir, OutputFilePath)
 }

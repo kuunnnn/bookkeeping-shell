@@ -1,4 +1,4 @@
-package funcs
+package read_data
 
 import (
 	"fmt"
@@ -30,4 +30,3 @@ func Backup() error {
 	fmt.Printf("备份完成,写入%d个字节\n", n)
 	return nil
 }
-
