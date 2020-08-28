@@ -1,10 +1,10 @@
 package analyze
 
 import (
-	read_data "bookkeeping-shell/read-data"
 	"fmt"
 	"github.com/pkg/errors"
 	"strconv"
+	"bookkeeping-shell/store"
 	"time"
 )
 
@@ -16,8 +16,8 @@ const (
 	TAG   BillType = 2
 )
 
-func OutputBillData(typ BillType, species read_data.Species) error {
-	recordSlice, err := read_data.ReadDataToRecordSlice()
+func OutputBillData(typ BillType, species store.Species) error {
+	recordSlice, err := store.ReadDataToRecordSlice()
 	if err != nil {
 		return errors.WithStack(err)
 	}
@@ -59,10 +59,10 @@ func OutputBillData(typ BillType, species read_data.Species) error {
 	}
 	for k, v := range data {
 		switch species {
-		case read_data.INCOME:
+		case store.INCOME:
 			fmt.Printf("%-4s %s 收入 %.2f\n", k, label, v)
 			break
-		case read_data.EXPENSE:
+		case store.EXPENSE:
 			fmt.Printf("%-4s %s 支出 %.2f\n", k, label, v)
 			break
 		default:

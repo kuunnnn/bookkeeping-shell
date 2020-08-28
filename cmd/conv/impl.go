@@ -1,7 +1,7 @@
 package conv
 
 import (
-	read_data "bookkeeping-shell/read-data"
+	"bookkeeping-shell/store"
 	"encoding/json"
 	"fmt"
 	"github.com/pkg/errors"
@@ -10,7 +10,7 @@ import (
 )
 
 func ToJSON() error {
-	jsonSlice, err := read_data.ReadDataToRecordSlice()
+	jsonSlice, err := store.ReadDataToRecordSlice()
 	if err != nil {
 		return errors.WithStack(err)
 	}
@@ -23,10 +23,10 @@ func ToJSON() error {
 		}
 	}
 	output = append(output, "]")
-	err = ioutil.WriteFile(read_data.OutputFilePath, []byte(strings.Join(output, "")), 0644)
+	err = ioutil.WriteFile(store.OutputFilePath, []byte(strings.Join(output, "")), 0644)
 	if err != nil {
 		return errors.Wrap(err, "write data to json file error")
 	}
-	fmt.Printf("The file has been generated to %s\n", read_data.OutputFilePath)
+	fmt.Printf("The file has been generated to %s\n", store.OutputFilePath)
 	return nil
 }

@@ -1,7 +1,7 @@
 package tag
 
 import (
-	read_data "bookkeeping-shell/read-data"
+	"bookkeeping-shell/store"
 	"fmt"
 	"github.com/pkg/errors"
 )
@@ -15,7 +15,7 @@ func ArrayIncludes(array []string, name string) bool {
 }
 
 func PrintCategoryList() error {
-	data, err := read_data.ReadDataToRecordSlice()
+	data, err := store.ReadDataToRecordSlice()
 	if err != nil {
 		return errors.Wrap(err, "读取数据文件错误")
 	}
@@ -33,7 +33,7 @@ func PrintCategoryList() error {
 	return nil
 }
 func ModifyCategoryName(fromName []string, targetName string) error {
-	data, err := read_data.ReadDataToRecordSlice()
+	data, err := store.ReadDataToRecordSlice()
 	if err != nil {
 		return errors.Wrap(err, "读取数据文件错误")
 	}
@@ -42,5 +42,5 @@ func ModifyCategoryName(fromName []string, targetName string) error {
 			record.Category = targetName
 		}
 	}
-	return read_data.Rewrite(data)
+	return store.Rewrite(data)
 }

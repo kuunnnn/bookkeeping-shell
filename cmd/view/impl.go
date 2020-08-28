@@ -1,7 +1,7 @@
 package view
 
 import (
-	read_data "bookkeeping-shell/read-data"
+	"bookkeeping-shell/store"
 	"bookkeeping-shell/tool"
 	"encoding/json"
 	"fmt"
@@ -16,11 +16,11 @@ import (
 // 打开浏览器
 func genViewJS() error {
 	// TODO: 这里每次都重新生成了一下是否需要判断下 view 目录存在的话就跳过
-	err := tool.GenDistFile(read_data.FileDirPath);
+	err := tool.GenDistFile(store.FileDirPath);
 	if err != nil {
 		return errors.Wrap(err, "create web chart file error")
 	}
-	jsonSlice, err := read_data.ReadDataToRecordSlice();
+	jsonSlice, err := store.ReadDataToRecordSlice();
 	if err != nil {
 		return errors.WithStack(err)
 	}
@@ -34,12 +34,12 @@ func genViewJS() error {
 		}
 	}
 	output = append(output, "];")
-	p := fmt.Sprintf("%s/view%s", read_data.FileDirPath, "/data.js");
+	p := fmt.Sprintf("%s/view%s", store.FileDirPath, "/data.js");
 	err = ioutil.WriteFile(p, []byte(strings.Join(output, "")), 0644)
 	if err != nil {
 		return errors.Wrap(err, "write data.js to web chart dir error")
 	}
-	err = exec.Command(`open`, fmt.Sprintf("%s/view/index.html", read_data.FileDirPath)).Start()
+	err = exec.Command(`open`, fmt.Sprintf("%s/view/index.html", store.FileDirPath)).Start()
 	if err != nil {
 		return errors.Wrap(err, "open browser error")
 	}

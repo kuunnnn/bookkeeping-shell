@@ -1,28 +1,28 @@
 package sort
 
 import (
-	read_data "bookkeeping-shell/read-data"
+	"bookkeeping-shell/store"
 	"github.com/pkg/errors"
 )
 
 func Sort() error {
-	jsonSlice, err := read_data.ReadDataToRecordSlice()
+	jsonSlice, err := store.ReadDataToRecordSlice()
 	if err != nil {
 		return errors.WithStack(err)
 	}
 	sort(jsonSlice)
-	return read_data.Rewrite(jsonSlice)
+	return store.Rewrite(jsonSlice)
 }
 
 // 进行排序
-func sort(array []*read_data.Record) {
+func sort(array []*store.Record) {
 	i := 0
 	j := len(array) - 1
 	quickSort(array, i, j)
 }
 
 // 快排
-func quickSort(array []*read_data.Record, low, high int) {
+func quickSort(array []*store.Record, low, high int) {
 	if high-low <= 0 {
 		return
 	}

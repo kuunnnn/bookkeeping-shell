@@ -17,7 +17,7 @@ func createCommand()*cobra.Command  {
 		Long:  "在浏览器中展示图表",
 		Args:  cobra.MaximumNArgs(0),
 		Run: func(cmd *cobra.Command, args []string) {
-			err := genViewJS();
+			err := genViewJS()
 			if err != nil {
 				fmt.Printf("error: %v:\n", errors.Unwrap(err))
 			}

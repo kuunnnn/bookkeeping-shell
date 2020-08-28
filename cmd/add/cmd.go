@@ -1,11 +1,11 @@
 package add
 
 import (
-	read_data "bookkeeping-shell/read-data"
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"os"
+	"bookkeeping-shell/store"
 )
 
 var typ string
@@ -29,9 +29,9 @@ func handler(cmd *cobra.Command, args []string) {
 	//	fmt.Printf("money 需要是一个可以被解析成 float64 的参数 [ %s ]", args[0])
 	//	os.Exit(-1)
 	//}
-	tp := read_data.INCOME
+	tp := store.INCOME
 	if typ == "e" {
-		tp = read_data.EXPENSE
+		tp = store.EXPENSE
 	}
 	if desc == "" {
 		desc = "无"
@@ -40,6 +40,7 @@ func handler(cmd *cobra.Command, args []string) {
 		fmt.Printf("money[ %.2f ]不能小于等于0\n", money)
 		os.Exit(0)
 	}
+
 	err := add(money, args[0], desc, day, tp)
 	if err != nil {
 		fmt.Printf("插入数据失败 err: %v", errors.Unwrap(err))

@@ -1,7 +1,7 @@
 package analyze
 
 import (
-	read_data "bookkeeping-shell/read-data"
+	"bookkeeping-shell/store"
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -19,9 +19,9 @@ func Register(root *cobra.Command) {
 	root.AddCommand(command)
 }
 func handler(cmd *cobra.Command, args []string) {
-	s := read_data.INCOME
+	s := store.INCOME
 	if species != "i" {
-		s = read_data.EXPENSE
+		s = store.EXPENSE
 	}
 	t := MONTH
 	if billType != "month" && billType != "tag" {

@@ -1,7 +1,7 @@
 package del
 
 import (
-	read_data "bookkeeping-shell/read-data"
+	"bookkeeping-shell/store"
 	"bufio"
 	"fmt"
 	"github.com/pkg/errors"
@@ -14,7 +14,7 @@ func delete(line uint) error {
 	if line == 0 {
 		return nil
 	}
-	file, err := os.Open(read_data.FilePath)
+	file, err := os.Open(store.FilePath)
 	if err != nil {
 		return errors.Wrap(err, "打开文件错误")
 	}
@@ -37,7 +37,7 @@ func delete(line uint) error {
 	if i < int(line) {
 		return errors.New(fmt.Sprintf("The line was not found [%d] \n", line))
 	}
-	err = ioutil.WriteFile(read_data.FilePath, buf, 0644)
+	err = ioutil.WriteFile(store.FilePath, buf, 0644)
 	if err != nil {
 		return errors.Wrap(err, "Write error")
 	}

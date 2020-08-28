@@ -1,6 +1,7 @@
 package tool
 
 import (
+	_ "bookkeeping-shell/statik"
 	"fmt"
 	"github.com/pkg/errors"
 	"github.com/rakyll/statik/fs"
